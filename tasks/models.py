@@ -26,6 +26,9 @@ class Task(models.Model):
             Q(schedule__contains=hh_target) &
             Q(schedule__contains=wd_target))
 
+    def __str__(self):
+        return f'{self.name} ({self.id})'
+
 
 class TaskResult(models.Model):
 
@@ -42,3 +45,6 @@ class TaskResult(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     description = models.TextField(null=True, blank=True)
     status = models.CharField(max_length=16, choices=STATUS_CHOICES, default=STATUS_PENDING)
+
+    def __str__(self):
+        return f'{self.get_status_display()} ({self.id})'

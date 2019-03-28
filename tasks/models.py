@@ -29,14 +29,16 @@ class Task(models.Model):
 
 class TaskResult(models.Model):
 
+    STATUS_PENDING = 'PENDING'
     STATUS_DONE = 'DONE'
     STATUS_CANCELED = 'CANCELED'
 
     STATUS_CHOICES = (
+        (STATUS_PENDING, 'Pending'),
         (STATUS_DONE, 'Done'),
         (STATUS_CANCELED, 'Canceled'),
     )
 
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     description = models.TextField(null=True, blank=True)
-    status = models.CharField(max_length=16, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=16, choices=STATUS_CHOICES, default=STATUS_PENDING)
